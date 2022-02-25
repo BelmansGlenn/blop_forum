@@ -73,4 +73,18 @@ class ArticleController extends AbstractController
         $entityManager->flush();
         return $this->redirectToRoute("home");
     }
+
+    #[Route('/article/{id}', name: 'one_article', requirements: ['id ' => "\d+"])]
+    public function oneArticle(EntityManagerInterface $entityManager, int $id): Response
+    {
+        $article = $entityManager->getRepository(Article::class)->findOneById($id);
+
+        if ($article == null){
+            throw new NotFoundHttpException();
+        }
+
+        return $this->render('one_article/index.html.twig', [
+            'article' => $article
+        ]);
+    }
 }
