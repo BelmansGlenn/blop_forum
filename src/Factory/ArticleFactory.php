@@ -41,7 +41,7 @@ final class ArticleFactory extends ModelFactory
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
             'title' => self::faker()->sentence(),
             'description' => self::faker()->paragraph(),
-            'content' => self::faker()->text(),
+            'content' => self::faker()->realText(200, 5),
         ];
     }
 
