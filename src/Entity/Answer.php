@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Timestampable;
 use App\Repository\AnswerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Answer
 {
+
+    use Timestampable;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
