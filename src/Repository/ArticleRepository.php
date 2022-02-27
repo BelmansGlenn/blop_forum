@@ -38,10 +38,10 @@ class ArticleRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('a')
             ->leftJoin('a.author', 'author')
-            ->andWhere('author.id = :val')
+            ->andWhere('a.author = :val')
             ->setParameter('val', $id)
-            ->addSelect('author')
             ->orderBy('a.createdAt', 'DESC')
+            ->addSelect('author')
             ->getQuery()
             ->getResult()
             ;
@@ -55,6 +55,10 @@ class ArticleRepository extends ServiceEntityRepository
             ->andWhere('a.id = :val')
             ->leftJoin('a.author', 'author')
             ->addSelect('author')
+            ->leftJoin('a.answers', 'answers')
+            ->addSelect('answers')
+            ->leftJoin('answers.author_com', 'a_com')
+            ->addSelect('a_com')
             ->setParameter('val', $id)
             ->getQuery()
             ->getOneOrNullResult()

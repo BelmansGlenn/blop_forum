@@ -6,6 +6,7 @@ use App\Entity\Article;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,7 +28,7 @@ class NewArticleFormType extends AbstractType
                 ]
 
             ])
-            ->add('description', TextType::class, [
+            ->add('description', TextareaType::class, [
                 'label' => 'Description',
                 'constraints' => [
                     new Length([
@@ -37,7 +38,7 @@ class NewArticleFormType extends AbstractType
                     new NotBlank()
                 ]
             ])
-            ->add('content', TextType::class, [
+            ->add('content', TextareaType::class, [
                 'label' => 'Contenu',
                 'constraints' => [
                     new Length([
