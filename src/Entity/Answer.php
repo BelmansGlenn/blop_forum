@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=AnswerRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Answer
 {
@@ -31,6 +32,12 @@ class Answer
      * @ORM\JoinColumn(nullable=false)
      */
     private $article;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="answers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author_com;
 
     public function getId(): ?int
     {
@@ -57,6 +64,18 @@ class Answer
     public function setArticle(?Article $article): self
     {
         $this->article = $article;
+
+        return $this;
+    }
+
+    public function getAuthorCom(): ?User
+    {
+        return $this->author_com;
+    }
+
+    public function setAuthorCom(?User $author_com): self
+    {
+        $this->author_com = $author_com;
 
         return $this;
     }
