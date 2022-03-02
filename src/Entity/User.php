@@ -71,10 +71,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $answers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UpVote::class, mappedBy="user")
+     */
+    private $upVotes;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->answers = new ArrayCollection();
+        $this->upVotes = new ArrayCollection();
     }
 
 
@@ -277,6 +283,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($answer->getAuthorCom() === $this) {
                 $answer->setAuthorCom(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UpVote[]
+     */
+    public function getUpVotes(): Collection
+    {
+        return $this->upVotes;
+    }
+
+    public function addUpVote(UpVote $upVote): self
+    {
+        if (!$this->upVotes->contains($upVote)) {
+            $this->upVotes[] = $upVote;
+            $upVote->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUpVote(UpVote $upVote): self
+    {
+        if ($this->upVotes->removeElement($upVote)) {
+            // set the owning side to null (unless already changed)
+            if ($upVote->getUser() === $this) {
+                $upVote->setUser(null);
             }
         }
 
