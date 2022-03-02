@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use App\Security\LoginFormAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
+use Flasher\Prime\FlasherInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +31,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/enregistrement", name="app_register")
      */
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager, FlasherInterface $flasher): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -58,6 +59,7 @@ class RegistrationController extends AbstractController
             );
 
             // do anything else you need here, like send an email
+            $flasher->addInfo('Un email vous a ete envoye, veuillez verifier votre compte');
             return $this->redirectToRoute('app_login');
         }
 
@@ -69,7 +71,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/verify/email", name="app_verify_email")
      */
-    public function verifyUserEmail(Request $request, UserRepository $userRepository): Response
+    public function verifyUserEmail(Request $request, UserRepository $userRepository, FlasherInterface $flasher): Response
     {
         $id = $request->get('id');
 
@@ -85,13 +87,13 @@ class RegistrationController extends AbstractController
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('verify_email_error', $exception->getReason());
+            $flasher->addError('Une erreur est survenue durant la verification de votre email');
 
             return $this->redirectToRoute('app_register');
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        $flasher->addSuccess('Votre email a ete verifie');
 
         return $this->redirectToRoute('app_login');
     }

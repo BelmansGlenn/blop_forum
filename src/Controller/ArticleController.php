@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\NewArticleFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use Flasher\Prime\FlasherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +39,7 @@ class ArticleController extends AbstractController
 
 
     #[Route('/article/modifier/{id}', name: 'update_article', requirements: ['id ' => "\d+"])]
-    public function update(Request $request, EntityManagerInterface $entityManager, int $id): Response
+    public function update(Request $request, EntityManagerInterface $entityManager, int $id, FlasherInterface $flasher): Response
     {
         $article = $entityManager->getRepository(Article::class)->find($id);
 
@@ -55,13 +56,16 @@ class ArticleController extends AbstractController
 
             return $this->redirectToRoute("home");
         }
+
+        $flasher->addSuccess('Votre article a bien ete modifie');
+
         return $this->render('update_article/index.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     #[Route('/article/supprimer/{id}', name: 'remove_article', requirements: ['id ' => "\d+"])]
-    public function delete(Request $request,EntityManagerInterface $entityManager, int $id): Response
+    public function delete(Request $request,EntityManagerInterface $entityManager, int $id, FlasherInterface $flasher): Response
     {
         $article = $entityManager->getRepository(Article::class)->find($id);
 
@@ -71,6 +75,7 @@ class ArticleController extends AbstractController
 
         $entityManager->remove($article);
         $entityManager->flush();
+        $flasher->addSuccess('Votre article a bien ete supprime');
         return $this->redirectToRoute("home");
     }
 
