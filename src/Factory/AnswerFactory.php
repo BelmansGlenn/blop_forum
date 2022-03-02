@@ -40,7 +40,6 @@ final class AnswerFactory extends ModelFactory
         return [
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
             'comment' => self::faker()->realText(),
-
         ];
     }
 

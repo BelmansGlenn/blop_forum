@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Factory\AnswerFactory;
 use App\Factory\ArticleFactory;
 use App\Factory\UserFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -15,11 +16,16 @@ class AppFixtures extends Fixture
         // $manager->persist($product);
         UserFactory::createOne(['email' => 'moi@hotmail.com']);
         $users = UserFactory::createMany(10);
-        ArticleFactory::createMany(20, function () use ($users){
+
+        $articles = ArticleFactory::createMany(20, function () use ($users){
             return [
                 'author' => $users[array_rand($users)],
                 ];
         });
+
+
+
+
         $manager->flush();
     }
 }

@@ -110,6 +110,18 @@
     "nikic/php-parser": {
         "version": "v4.13.2"
     },
+    "php-flasher/flasher": {
+        "version": "v0.9.6"
+    },
+    "php-flasher/flasher-symfony": {
+        "version": "v0.9.6"
+    },
+    "php-flasher/flasher-toastr": {
+        "version": "v0.9.6"
+    },
+    "php-flasher/flasher-toastr-symfony": {
+        "version": "v0.9.6"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },

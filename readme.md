@@ -1,8 +1,9 @@
 a faire: 
-- generer des commentaires avec foundry
-- comprendre et resoudre les deux queries dans user_articles
-- modifier/supprimer un de nos commentaires
-- Role acces page
+- generer des commentaires avec foundry ?????
+- comprendre et resoudre les deux queries dans user_articles -> CHECK
+- modifier/supprimer un de nos commentaires --> CHECK
+- add message flashes --> CHECK
+- Role acces page --> CHECK
 - les upvotes - downvote
 - role moderateur de notre article
 - role mini modo pour gerer les comm
@@ -12,4 +13,15 @@ a faire:
 
 
 
-toastrjs gerer les messages flash
+php flasher toastr = gerer les messages flash
+
+
+
+
+
+Khun:
+
+- foundry multiple relation
+- newsletter how the client will use it
+- conf async 
+- commentaires s'affichent

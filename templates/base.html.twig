@@ -17,9 +17,10 @@
     <body>
     {% block nav %}
     {% endblock %}
-    {% for flash in app.flashes('sucsess') %}
-    <div>{{ flash }}</div>
-    {% endfor %}
-        {% block body %}{% endblock %}
+        {% block body %}
+
+
+        {% endblock %}
+    {{ flasher_render() }}
     </body>
 </html>
