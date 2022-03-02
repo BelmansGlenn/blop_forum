@@ -4,7 +4,7 @@ a faire:
 - modifier/supprimer un de nos commentaires --> CHECK
 - add message flashes --> CHECK
 - Role acces page --> CHECK
-- les upvotes - downvote
+- les upvotes --> CHECK
 - role moderateur de notre article
 - role mini modo pour gerer les comm
 - systeme de recherche
@@ -16,7 +16,7 @@ a faire:
 php flasher toastr = gerer les messages flash
 
 
-
+stfalcontinymce
 
 
 Khun:

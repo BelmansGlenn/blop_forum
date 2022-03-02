@@ -40,15 +40,9 @@
 
                             <ul class="list-inline d-sm-flex my-0">
                                 <li class="list-inline-item g-mr-20">
-                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="{{ path('upVoting', {id: article.id }) }}">
                                         <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
-                                        178
-                                    </a>
-                                </li>
-                                <li class="list-inline-item g-mr-20">
-                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
-                                        <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
-                                        34
+                                        {{ article.upVotes|length }}
                                     </a>
                                 </li>
                                 <li class="list-inline-item ml-auto">
@@ -64,7 +58,7 @@
             </div>
         </div>
         <hr>
-    {% if article.answers is not null %}
+    {% if article.answers |length > 0 %}
         <h6>Commentaires</h6>
             {% for answer in article.answers %}
                 <a href="{{ path('user_articles', {id: answer.authorcom.id}) }}">{{ answer.authorcom.firstname }} {{ answer.authorcom.lastname }}</a>

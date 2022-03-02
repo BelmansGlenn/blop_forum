@@ -50,9 +50,15 @@ class Article
      */
     private $answers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UpVote::class, mappedBy="article")
+     */
+    private $upVotes;
+
     public function __construct()
     {
         $this->answers = new ArrayCollection();
+        $this->upVotes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -132,6 +138,36 @@ class Article
             // set the owning side to null (unless already changed)
             if ($answer->getArticle() === $this) {
                 $answer->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UpVote[]
+     */
+    public function getUpVotes(): Collection
+    {
+        return $this->upVotes;
+    }
+
+    public function addUpVote(UpVote $upVote): self
+    {
+        if (!$this->upVotes->contains($upVote)) {
+            $this->upVotes[] = $upVote;
+            $upVote->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUpVote(UpVote $upVote): self
+    {
+        if ($this->upVotes->removeElement($upVote)) {
+            // set the owning side to null (unless already changed)
+            if ($upVote->getArticle() === $this) {
+                $upVote->setArticle(null);
             }
         }
 
